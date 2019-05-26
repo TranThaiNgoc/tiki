@@ -50,6 +50,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'role:su
 		Route::get('delete/{id}', 'ProductController@getdelete')->name('admin.product.delete');
 	});
 
+	Route::group(['prefix' => 'order'],function(){
+		Route::get('/', 'OrderController@getlist')->name('admin.order');
+		Route::get('edit/{id}', 'OrderController@getedit')->name('admin.order.edit');
+		Route::post('edit/{id}', 'OrderController@postedit');
+		Route::get('delete/{id}', 'OrderController@getdelete')->name('admin.order.delete');
+	});
+
 	Route::group(['prefix' => 'user'],function(){
 		Route::get('/', 'UserController@getlist')->name('admin.user');
 		Route::get('add', 'UserController@getadd')->name('admin.user.add');
@@ -78,6 +85,11 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('sua-tai-khoan', 'IndexController@getEditProfile')->name('edit_profile');
 	Route::post('sua-tai-khoan', 'IndexController@postEditProfile');
 	Route::group(['perfix' => 'gio-hang'], function() {
-		Route::get('them/{slug}', 'CartController@getAdd')->name('add_cart');
+		Route::get('add/{id}', 'CartController@getAdd')->name('add');
+		Route::get('show', 'CartController@getShow')->name('show');
+		Route::get('delete/{id}', 'CartController@getDelete')->name('delete');
+		Route::get('update', 'CartController@getUpdate')->name('update');
 	});
+	route::get('thong-tin-don-hang', 'IndexController@getOrder')->name('order');
+	route::post('thong-tin-don-hang', 'IndexController@postOrder');
 });

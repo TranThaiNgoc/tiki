@@ -139,7 +139,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#" id="cart" class="col-md-4 text-white">
+                        <a href="{{ route('show') }}" id="cart" class="col-md-4 text-white">
                             <div class="d-flex align-items-center">
                                 <div class="header-link-icons">
                                     <i class="fi fi-shopping-basket"></i>
@@ -150,7 +150,7 @@
                                     </div>
                                 </div>
                                 <div class="">
-                                    <label id="cart-number" class="bg-warning mb-0">0</label>
+                                    <label id="cart-number" class="bg-warning mb-0">{{ Cart::count() }}</label>
                                 </div>
                             </div>
                         </a>
@@ -252,7 +252,7 @@
 <script async defer crossorigin="anonymous"
 src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.2&appId=2046573405635669&autoLogAppEvents=1"></script>
 <script src="{{asset('home/js/app.js')}}"></script>
-@yield('script')
+@stack('script')
 </body>
 
 </html>

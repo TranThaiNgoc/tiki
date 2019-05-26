@@ -52,7 +52,7 @@
 		</div>
 	</div>
 </nav>
-@section('script')
+@push('script')
 <script type="text/javascript">
     $(function() {
     var Accordion = function(el, multiple) {
@@ -81,4 +81,4 @@
     var accordion = new Accordion($('#accordion'), false);
 });
 </script>
-@stop
+@endpush

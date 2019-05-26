@@ -9,6 +9,7 @@ use App\product_type;
 use App\product;
 use DB;
 use Auth;
+use Cart;
 
 class IndexController extends Controller
 {
@@ -26,12 +27,12 @@ class IndexController extends Controller
 
     public function getProduct_type($slug) {
     	$product_type = DB::table('product_type')->where('slug', $slug)->first();
-    	$product = DB::table('product')->where('id_product_type', $product_type->id)->paginate(8);
+    	$product = DB::table('product')->where('id_product_type', $product_type->id)->where('status', 1)->paginate(8);
     	return view('themes.producttype', compact('product_type', 'product'));
     }
 
     public function getProduct($slug) {
-    	$product = product::where('slug', $slug)->first();
+    	$product = product::where('slug', $slug)->where('status', 1)->first();
     	$product_relate = product::where('id_product_type', $product->id_product_type)->where('id_categories', $product->id_categories)->where('slug','!=',$product->slug)->where('status',1)->limit(2)->get();
     	return view('themes.product', compact('categories', 'product_type', 'product', 'product_relate'));
     }
@@ -144,5 +145,53 @@ class IndexController extends Controller
         DB::table('users')->where('id', Auth::id())->update($data);
 
         return redirect()->back()->with('thongbao', 'Sửa Thông tin thành công.');
+    }
+
+    public function getOrder() {
+        $data = Cart::content();
+        return view('themes.order', compact('data'));
+    }
+
+    public function postOrder(Request $request) {
+        $this->validate($request,
+            [
+                'name' => 'required|min:2|max:32',
+                'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:11',
+                'address' => 'required',
+                'email' => 'required|email',
+            ],
+            [
+                'name.required' => 'Tên không được để trống.',
+                'name.name' => 'Tên không hợp lệ.',
+                'name.min' => 'Tên có độ dài từ 2 đến 32 ký tự.',
+                'name.max' => 'Tên có độ dài từ 2 đến 32 ký tự.',
+                'phone.required' => 'Số điện thoại không được để trống.',
+                'phone.regex' => 'Số điện thoại không hợp lệ.',
+                'phone.min' => 'Số điện thoại có độ dài từ 10 đến 11 số',
+                'phone.max' => 'Số điện thoại có độ dài từ 10 đến 11 số',
+                'address.required' => 'Địa chỉ không được bỏ trống.',
+                'email.required' => 'Email không được để trống.',
+                'email.email' => 'Email đăng ký không hợp lệ.',
+            ]);
+        $itme = Cart::content();
+        foreach($itme as $value) {
+            $data = [
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'address' => $request->address,
+                'email' => $request->email,
+                'application' => 'Chuyển hàng nhanh',
+                'product' => json_encode($request->product),
+                'number' => json_decode($request->number),
+                'transport' => $request->transport,
+                'money' => Cart::total(),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ];
+        }
+
+        DB::table('order')->insert($data);
+        Cart::destroy();
+        return redirect()->back()->with('thongbao', 'Thanh toán đơn hàng thành công.');
     }
 }

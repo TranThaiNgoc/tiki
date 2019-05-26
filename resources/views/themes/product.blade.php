@@ -107,7 +107,7 @@
 											</div>
 											<div class="mt-3 row flex-md-row flex-comlumn">
 												<div class="col-xl-6 col-md-12 mb-2 mb-xl-0">
-													<a class="be-submit font-weight-bold btn btn-primary d-inline-block w-100" href="{{ route('add_cart',['slug'=>$product->slug]) }}">
+													<a class="be-submit font-weight-bold btn btn-primary d-inline-block w-100" href="{{ route('add',['id'=>$product->id]) }}">
 													<i class="fa fa-shopping-cart" aria-hidden="true"></i>
 													Thêm vào giỏ hàng</a>
 												</button>
