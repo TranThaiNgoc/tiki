@@ -35,7 +35,8 @@
 						</div>
 						<div class="form-group row">
 							<div class="col-md-12 my-2 my-md-0">
-								<textarea class="form-control" name="address" cols="4">{!! Auth::user()->address !!}</textarea>
+								<textarea class="form-control" name="address" cols="4">{!! isset(Auth::user()->address) ? Auth::user()->address : old('address')  !!}</textarea>
+								<span class="text-danger">{{ $errors->first('address') }}</span>
 							</div>
 						</div>
 						<h4 class="d-flex align-items-center mt-md-5 mt-3">

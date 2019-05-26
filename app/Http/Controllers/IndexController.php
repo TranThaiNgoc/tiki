@@ -10,6 +10,8 @@ use App\product;
 use DB;
 use Auth;
 use Cart;
+use Mail;
+use App\Mail\Sendemail;
 
 class IndexController extends Controller
 {
@@ -189,8 +191,13 @@ class IndexController extends Controller
                 'updated_at' => date('Y-m-d H:i:s'),
             ];
         }
-
         DB::table('order')->insert($data);
+
+        $email = $request->email;
+        $name = 'Đặt hàng thành công.';
+        $product = $itme;
+        $total = Cart::total();
+        Mail::to($email)->Send(new sendemail($name, $product, $total));
         Cart::destroy();
         return redirect()->back()->with('thongbao', 'Thanh toán đơn hàng thành công.');
     }
