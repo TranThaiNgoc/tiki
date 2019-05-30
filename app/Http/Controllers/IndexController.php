@@ -12,6 +12,7 @@ use Auth;
 use Cart;
 use Mail;
 use App\Mail\Sendemail;
+use Session;
 
 class IndexController extends Controller
 {

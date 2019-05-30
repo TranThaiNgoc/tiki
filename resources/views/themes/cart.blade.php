@@ -45,10 +45,6 @@
                                     <td class="text-center">
                                         <div class="input-group spinner">
                                             <input type="number" class="form-control-sm border-0 form-control-style rounded-0" value="{{ $value->qty }}" onchange="updateCart(this.value,'{{ $value->rowId }}')" min="1" max="99" style="width: 50px;">
-                                            <div class="input-group-btn-vertical">
-                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                            </div>
                                         </div>
                                     </td>
                                     <td class="text-danger la-text-normal">

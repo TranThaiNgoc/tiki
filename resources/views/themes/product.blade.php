@@ -86,25 +86,8 @@
 									</div>
 									<div class="quantily-select mt-3">
 										<div class="row input-group number-spinner">
-											<div class="col-md-3">
-												<label for="id-quanlity">Số lượng:</label>
-											</div>
-											<div class="d-inline-block col-md-9">
-												<div class="d-inline-flex">
-													<span class="input-group-btn ml-1">
-														<button class="btn-sm border-0 bg-light h-100" data-dir="dwn"><span
-															class="glyphicon glyphicon-minus">-</span></button>
-														</span>
-														<input id="id-quanlity" type="text" class="form-control-sm border text-center" value="1"
-														style="width:60px">
-														<span class="input-group-btn">
-															<button class="btn-sm border-0 bg-light h-100" data-dir="up"><span
-																class="glyphicon glyphicon-plus">+</span></button>
-															</span>
-														</div>
-													</div>
-												</div>
-											</div>
+										</div>
+									</div>
 											<div class="mt-3 row flex-md-row flex-comlumn">
 												<div class="col-xl-6 col-md-12 mb-2 mb-xl-0">
 													<a class="be-submit font-weight-bold btn btn-primary d-inline-block w-100" href="{{ route('add',['id'=>$product->id]) }}">
